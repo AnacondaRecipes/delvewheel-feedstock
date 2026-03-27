@@ -1,4 +1,3 @@
-{% set python_min = python_min|default("3.8") %}
 {% set name = "delvewheel" %}
 {% set version = "1.12.0" %}
 
@@ -13,17 +12,16 @@ source:
 build:
   entry_points:
     - delvewheel = delvewheel.__main__:main
-  noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
 
 requirements:
   host:
-    - python {{ python_min }}
+    - python
     - setuptools >=70.1.0
     - pip
   run:
-    - python >={{ python_min }}
+    - python
     - pefile >=2024.8.26
 
 test:
@@ -33,7 +31,7 @@ test:
     - pip check
     - delvewheel --help
   requires:
-    - python {{ python_min }}
+    - python
     - pip
 
 about:
@@ -41,6 +39,14 @@ about:
   summary: Self-contained wheels for Windows
   license: MIT
   license_file: LICENSE
+  license_family: MIT
+  description: |
+    delvewheel is a command-line tool for creating self-contained Python
+    wheel packages for Windows that have DLL dependencies that may not be
+    present on the target system.
+    It is functionally similar to auditwheel (for Linux) and delocate (for macOS).
+  doc_url: https://github.com/adang1345/delvewheel
+  dev_url: https://github.com/adang1345/delvewheel
 
 extra:
   recipe-maintainers:
